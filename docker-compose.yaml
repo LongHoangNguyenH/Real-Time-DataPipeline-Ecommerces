@@ -25,7 +25,7 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - auto.create.topics.enable=true
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
-      - KAFKA_TOPICS="TopicA:1:1"
+      - KAFKA_TOPICS="Ecommerce:1:1"
     depends_on:
       - zookeeper
   # ------------------- #
@@ -44,7 +44,6 @@ services:
     ports:
       - '8080:8080'
       - '7077:7077'
-      - '4040:4040'
     volumes:
         - ./Stream:/data  
 
@@ -70,30 +69,33 @@ services:
   #  Mongo DB         #
   # ----------------- # 
   mongo:
-    image: mongo
-    container_name: 'mongo'
+    image: mongo:5.0
+    container_name: mongo
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=password
+    restart: unless-stopped
     ports:
       - "27017:27017"
-    environment:
-       MONGO_INITDB_ROOT_USERNAME: root
-       MONGO_INITDB_ROOT_PASSWORD: pass   
     volumes:
       - ./database/db:/data/db
+      - ./database/dev.archive:/Databases/dev.archive
+      - ./database/production:/Databases/production
   # ----------------- #
-  #  Mongo DB ADMIN   #
+  #  Mongo-Express    #
   # ----------------- # 
-  mongo_admin:
+
+  mongo-express:
     image: mongo-express
-    container_name: 'mongoadmin'
-    depends_on:
-      - mongo
-    links:
-      - mongo
-    ports:
-      - "8081:8081"    
+    container_name: mexpress
     environment:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=root
       - ME_CONFIG_MONGODB_ADMINPASSWORD=password
-      - ME_CONFIG_MONGODB_URL=mongodb://root:pass@mongo:27017/?authSource=admin
+      - ME_CONFIG_MONGODB_URL=mongodb://root:password@mongo:27017/?authSource=admin
       - ME_CONFIG_BASICAUTH_USERNAME=mexpress
       - ME_CONFIG_BASICAUTH_PASSWORD=mexpress
+    links:
+      - mongo
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
