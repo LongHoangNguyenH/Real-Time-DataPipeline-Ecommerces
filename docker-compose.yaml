@@ -25,7 +25,7 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - auto.create.topics.enable=true
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
-      - KAFKA_TOPICS="Ecommerce:1:1"
+      - KAFKA_TOPICS="Ecommerce_topic:1:1"
     depends_on:
       - zookeeper
   # ------------------- #
@@ -84,7 +84,6 @@ services:
   # ----------------- #
   #  Mongo-Express    #
   # ----------------- # 
-
   mongo-express:
     image: mongo-express
     container_name: mexpress
