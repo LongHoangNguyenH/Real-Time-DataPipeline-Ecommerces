@@ -4,7 +4,7 @@ import time
 import csv
 import json
 from datetime import datetime
-
+import random
 
 KAFKA_TOPIC_NAME_CONS = 'Ecommerce_topic'
 KAFKA_BOOTSTRAP_SERVERS_CONS = 'localhost:9092'
@@ -12,8 +12,8 @@ KAFKA_BOOTSTRAP_SERVERS_CONS = 'localhost:9092'
 def serializer(message):
     return json.dumps(message).encode('utf-8')
 
-producer = KafkaProducer(bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS_CONS,
-                         value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+producer = KafkaProducer(bootstrap_servers=[KAFKA_BOOTSTRAP_SERVERS_CONS],
+                         value_serializer=serializer)
 
 def producer_message(message):
     try:
@@ -30,4 +30,5 @@ with open("./dataset.csv") as f:
         message = dict(row)
         producer_message(message)
         print(f'Producing message @ {datetime.now()} | Message = {str(message)}')
-        time.sleep(5)
+        time_to_sleep = random.randint(1, 7)
+        time.sleep(time_to_sleep)
