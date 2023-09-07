@@ -1,5 +1,6 @@
-venv
-env
+
+ETD_E_VENV
 *\venv
 *\env
 database/*
+pycache
