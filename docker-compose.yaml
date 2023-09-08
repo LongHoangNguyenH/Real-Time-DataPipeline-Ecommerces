@@ -98,3 +98,10 @@ services:
     restart: unless-stopped
     ports:
       - "8081:8081"
+
+  
+volumes:
+  zookeeper_data-1:
+    driver: local 
+  kafka_data-1:
+    driver: local

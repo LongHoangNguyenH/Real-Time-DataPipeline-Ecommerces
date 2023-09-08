@@ -50,20 +50,20 @@ if __name__ == '__main__':
         .alias('orders'))\
         .select('orders.*')
     #Query
-    Country = converted_df.groupby('country')\
+    Product = converted_df.groupby('product')\
                 .agg({'quantity':'sum'})\
-                .select('country',col('sum(quantity)')\
+                .select('product',col('sum(quantity)')\
                 .alias('total_order_amount')
                 )
                 
-    Country.writeStream \
+    Product.writeStream \
         .format('mongodb')\
         .queryName('query_1')\
-        .option("checkpointLocation", "/tmp/pyspark6/")\
+        .option("checkpointLocation", "/tmp/pyspark3/")\
         .option("forceDeleteTempCheckpointLocation", "true")\
         .option('spark.mongodb.connection.uri', 'mongodb://root:password@mongo:27017/?authSource=admin')\
         .option('spark.mongodb.database', 'Ecommerce')\
-        .option('spark.mongodb.collection', 'CountryAnalytic')\
+        .option('spark.mongodb.collection', 'ProductAnalytic')\
         .trigger(processingTime="10 seconds")\
         .outputMode("complete")\
         .start().awaitTermination()

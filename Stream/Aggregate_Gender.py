@@ -12,8 +12,7 @@ if __name__ == '__main__':
         .builder \
         .appName('Pyspark streaming with Kafka') \
         .config('spark.jars.packages','org.mongodb.spark:mongo-spark-connector:10.0.0') \
-        .config('spark.jars.packages','org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0') \
-        .master('spark://spark:7077') \
+        .master("local[*]") \
         .getOrCreate()
     #Create Schema
     
@@ -50,20 +49,20 @@ if __name__ == '__main__':
         .alias('orders'))\
         .select('orders.*')
     #Query
-    Country = converted_df.groupby('country')\
+    Gender = converted_df.groupby('gender')\
                 .agg({'quantity':'sum'})\
-                .select('country',col('sum(quantity)')\
+                .select('gender',col('sum(quantity)')\
                 .alias('total_order_amount')
                 )
                 
-    Country.writeStream \
+    Gender.writeStream \
         .format('mongodb')\
         .queryName('query_1')\
-        .option("checkpointLocation", "/tmp/pyspark6/")\
+        .option("checkpointLocation", "/tmp/pyspark2/")\
         .option("forceDeleteTempCheckpointLocation", "true")\
         .option('spark.mongodb.connection.uri', 'mongodb://root:password@mongo:27017/?authSource=admin')\
         .option('spark.mongodb.database', 'Ecommerce')\
-        .option('spark.mongodb.collection', 'CountryAnalytic')\
+        .option('spark.mongodb.collection', 'GenderAnalytic')\
         .trigger(processingTime="10 seconds")\
         .outputMode("complete")\
         .start().awaitTermination()
