@@ -58,8 +58,8 @@ if __name__ == '__main__':
                 
     Country.writeStream \
         .format('mongodb')\
-        .queryName('query_1')\
-        .option("checkpointLocation", "/tmp/pyspark6/")\
+        .queryName('Country')\
+        .option("checkpointLocation", "/tmp/pyspark/")\
         .option("forceDeleteTempCheckpointLocation", "true")\
         .option('spark.mongodb.connection.uri', 'mongodb://root:password@mongo:27017/?authSource=admin')\
         .option('spark.mongodb.database', 'Ecommerce')\
@@ -67,3 +67,5 @@ if __name__ == '__main__':
         .trigger(processingTime="10 seconds")\
         .outputMode("complete")\
         .start().awaitTermination()
+    
+    print("Stream Data Processing Application Completed.")

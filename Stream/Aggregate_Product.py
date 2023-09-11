@@ -12,7 +12,6 @@ if __name__ == '__main__':
         .builder \
         .appName('Pyspark streaming with Kafka') \
         .config('spark.jars.packages','org.mongodb.spark:mongo-spark-connector:10.0.0') \
-        .config('spark.jars.packages','org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0') \
         .master('spark://spark:7077') \
         .getOrCreate()
     #Create Schema

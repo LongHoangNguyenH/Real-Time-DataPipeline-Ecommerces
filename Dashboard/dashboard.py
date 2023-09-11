@@ -27,17 +27,17 @@ groupby_column = st.selectbox(
         ('Country', 'Gender', 'Product Name'),
     )
 
-items = get_data("CountryAmount")    
+items = get_data("CountryAnalytic")    
 if groupby_column == "Product_name":
-    items = get_data("ProductAmount")
+    items = get_data("ProductAnalytic")
 elif  groupby_column == "gender" :  
-    items = get_data("GenderAmount")
+    items = get_data("GenderAnalytic")
 else :    
-    items = get_data("CountryAmount")
+    items = get_data("CountryAnalytic")
 
 # Print results.
 df = pd.DataFrame(items)
-df = df.drop(['id'], axis=1)
+df = df.drop(['_id'], axis=1)
 
 # ---- MAINPAGE ----#
 
