@@ -4,10 +4,11 @@
 1. [INTRODUCTION](#1-Introduction)
 2. [PROJECT STRUCTURE](#2-PROJECT-STRUCTURE)
 3. [Run](#3-Run)
-4. []
+
 
 ### INTRODUCTION
-This project built a real time data pipeline for ecommerce data, this data is streamed through 
+This project built a real time data pipeline for ecommerce data, all the data were stream by kafka combine pyspark and store in mongodb.
+Finally create a dashboard to visualize data by streamlit.
 
 #### Tool used
 + Docker
@@ -44,3 +45,14 @@ This project built a real time data pipeline for ecommerce data, this data is st
 - requirements.txt
 
 ### Run
+To run application 
+Firstly install dependancies.
+- Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+Secondly, Run project:
+```bash
+#run application
+bash activate.sh
+```
