@@ -5,10 +5,11 @@
 2. [PROJECT STRUCTURE](#2-PROJECT-STRUCTURE)
 3. [Run](#3-Run)
 
-
+![Architecture](./Doc/Architecture.png)
 ### INTRODUCTION
 This project built a real time data pipeline for ecommerce data, all the data were stream by kafka combine pyspark and store in mongodb.
 Finally create a dashboard to visualize data by streamlit.
+The project will allow for real time analytics on the ecommerce website, allowing for more efficient decision making and better customer experience. The data pipeline will make it easier to understand user behavior and trends, which will be beneficial for the website.
 
 #### Tool used
 + Docker
