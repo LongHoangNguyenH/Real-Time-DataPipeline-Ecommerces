@@ -52,7 +52,12 @@ Firstly install dependancies.
 ```bash
 pip install -r requirements.txt
 ```
-Secondly, Run project:
+secondly, create kafka-topic
+```bash
+cd kafka
+bash kafka-setup.sh
+```
+lastly, Run project:
 ```bash
 #run application
 bash activate.sh
